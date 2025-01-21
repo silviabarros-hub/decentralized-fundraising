@@ -109,20 +109,20 @@ describe("Fundraising", function () {
     );
   });
 
-it("should allow the creator to cancel a campaign", async function () {
-  const goal = ethers.parseEther("10");
-  await createCampaign(goal, 3600);
+  it("should allow the creator to cancel a campaign", async function () {
+    const goal = ethers.parseEther("10");
+    await createCampaign(goal, 3600);
 
-  const tx = await fundraising.connect(owner).cancelCampaign(1);
-  await tx.wait();
+    const tx = await fundraising.connect(owner).cancelCampaign(1);
+    await tx.wait();
 
-  // Check that the campaign data has been reset to default values
-  const campaign = await fundraising.campaigns(1);
-  expect(campaign.creator).to.equal(ethers.ZeroAddress); // Default address
-  expect(campaign.goal).to.equal(0); // Default uint value
-  expect(campaign.deadline).to.equal(0); // Default uint value
-  expect(campaign.fundsRaised).to.equal(0); // Default uint value
-});
+    // Check that the campaign data has been reset to default values
+    const campaign = await fundraising.campaigns(1);
+    expect(campaign.creator).to.equal(ethers.ZeroAddress); // Default address
+    expect(campaign.goal).to.equal(0); // Default uint value
+    expect(campaign.deadline).to.equal(0); // Default uint value
+    expect(campaign.fundsRaised).to.equal(0); // Default uint value
+  });
 
 
   it("should reject cancellation if funds have been raised", async function () {
